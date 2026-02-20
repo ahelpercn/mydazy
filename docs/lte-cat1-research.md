@@ -115,10 +115,21 @@ NB-IoT (250kbps)  →  Cat 1 (10Mbps)  →  Cat 4 (150Mbps)
 
 #### 2.1.4 上海海思（HiSilicon）
 
-| 芯片型号 | 特性 |
-|---------|------|
-| Hi2131 | 2024 年强势入局，优化功耗和信号接收，适用于移动支付、共享经济 |
-| Hi2115 | 早期 Cat 1 方案 |
+| 芯片型号 | 定位 | 特性 |
+|---------|------|------|
+| **Hi2131** | LTE Cat 1 | 2024年7月正式发布，优化功耗和信号接收，聚焦移动支付、共享经济 |
+| Hi2115 | NB-IoT | 第二代"Boudica"系列，集成 MCU+存储+RF+PMIC+应用处理器，支持 nuSIM |
+
+注：Hi2115 为 NB-IoT 而非 Cat 1。Hi2131 是海思首款 Cat 1 芯片，依托华为强大 R&D 资源，分析师预计 2026 年起快速抢占 ASR/移芯份额。
+
+#### 2.1.5 信翼科技（XINYISEMI）
+
+| 芯片型号 | 定位 | 特性 |
+|---------|------|------|
+| XY1100 | NB-IoT | 全球首款量产片内集成 CMOS PA 的 NB-IoT SoC，PSM 电流 700nA，累计出货超 1 亿片 |
+| **XY4100LC/LD** | **LTE Cat 1 bis** | **MWC 2025 发布**，XY4100LD 在 ISSCC 2025 发表论文（中国大陆唯一受邀）|
+
+ISSCC（IEEE 国际固态电路大会）是全球最顶级的芯片设计学术会议，与三星、英特尔同台意义重大。
 
 ---
 
@@ -126,39 +137,59 @@ NB-IoT (250kbps)  →  Cat 1 (10Mbps)  →  Cat 4 (150Mbps)
 
 #### 2.2.1 Sequans Communications
 
-**代表产品：Calliope 平台（SQN3530）**
+**代表产品：Calliope 系列**
+
+| 芯片型号 | 代次 | 主要特性 |
+|---------|------|---------|
+| SQN3520 (Calliope 1) | 第一代（2015年）| 首款 Cat 1 工业 IoT 芯片 |
+| **SQN3530 (Calliope 2)** | **第二代（2021年）**| 单芯片全集成，Rel-15，eUICC/ieUICC/UICC 灵活 SIM 管理 |
+| Calliope 3（规划中）| 第三代 | 5G NR eRedCap + LTE Cat 1 bis 双模，与 Calliope 2 模组封装兼容 |
 
 ```
-Calliope 架构（第二代 SQN3530）：
+Calliope 2 (SQN3530) 架构：
 ┌──────────────────────────────────────┐
-│         SQN3530 单芯片               │
+│         SQN3530 单芯片（WLP）         │
 │  ┌────────────┐  ┌─────────────────┐ │
 │  │  基带处理器 │  │  RF 收发器       │ │
-│  │ LTE协议栈  │  │ 晶圆级封装(WLP) │ │
+│  │  LTE协议栈  │  │  晶圆级封装(WLP)│ │
 │  └────────────┘  └─────────────────┘ │
 │  ┌──────────────────────────────────┐ │
-│  │  集成 IoT 应用处理器              │ │
-│  │  + IMS 客户端                    │ │
+│  │  集成 IoT 应用处理器 + IMS 客户端 │ │
 │  │  + Sequans AIR™ 干扰抑制技术     │ │
+│  │  + eUICC/ieUICC/UICC 支持        │ │
 │  └──────────────────────────────────┘ │
 └──────────────────────────────────────┘
 ```
 
-- 超低功耗 + 紧凑形态（基带和 RF 均采用晶圆级封装）
-- 已通过：Verizon、AT&T、KDDI、NTT Docomo、T-Mobile 认证
+- 超低功耗 + 紧凑形态（基带和 RF 均采用晶圆级封装 WLP）
+- 已通过：Verizon、AT&T、Bell、FirstNet、T-Mobile、Telus、Rogers、KDDI、NTT Docomo 认证
 - 适用于可穿戴、M2M、智能计量、家庭自动化、车载
+- **注**：2023-2024 年高通收购了 Sequans 的 4G IoT 技术组合
 
 #### 2.2.2 Qualcomm
 
-| 芯片型号 | 技术 | 备注 |
-|---------|------|------|
-| MDM9205 | LTE Cat-M1 + NB-IoT | 低功耗 IoT 定向 |
-| MDM9206 | LTE Cat-M1 + NB-IoT | 多模低功耗 |
-| 新品（2023+） | LTE Cat 1 bis | 2023 年后入局 Cat 1 bis 市场 |
+| 芯片型号 | 技术 | 核心 | 备注 |
+|---------|------|------|------|
+| MDM9205 | LTE Cat-M1 + NB-IoT | Cortex-A7 @ 800MHz，32MB DRAM+64MB Flash 片内集成 | 功耗比 MDM9206 降低 70% |
+| MDM9206 | LTE Cat-M1 + NB-IoT | Cortex-A7 | 多模低功耗，早期 IoT 旗舰 |
+| **QCX216** | **LTE Cat 1 bis** | **Cortex-M3 @ 204MHz** | **2022年12月发布，专用 Cat1bis IoT modem，FreeRTOS，Wi-Fi 扫描定位** |
 
-Qualcomm 2024 年发布白皮书《Understanding the Benefits of LTE Cat 1bis Technology》，正式布局该市场。
+**QCX216 关键规格**：
+- RAM 1.25MB + Flash 4MB（片内）
+- UART×4、USB 2.0、ADC×2、GPIO×4
+- 工业温度范围 -40°C～+85°C
+- 典型模组：Quectel EG916Q-GL、SIMCom SIM7672、Cavli C16QS（目标 $5 以内）
+- Qualcomm 2024 年发布白皮书《Understanding the Benefits of LTE Cat 1bis Technology》
 
-#### 2.2.3 RDA（现为 UNISOC 旗下）
+#### 2.2.3 Sony Altair（索尼旗下，原 Altair Semiconductor）
+
+| 芯片型号 | 特性 |
+|---------|------|
+| **ALT1160** | LTE Cat 1，片内集成 DDR 内存 + PMIC，MCU 子系统，VoLTE，eDRX 省电 80%，可软件升级为 Cat-M1 |
+
+已通过：AT&T、T-Mobile、NTT DoCoMo、KDDI 认证。
+
+#### 2.2.4 RDA（现为 UNISOC 旗下）
 
 - RDA8910：早期 Cat 1 方案，被 Logicrom SDK 等生态广泛支持
 
@@ -372,18 +403,23 @@ NAS（非接入层）: 移动性管理(EMM) + 会话管理(ESM)
 
 ## 四、主流芯片横向对比
 
-| 对比项 | ASR1601/1606 | Eigencomm EC618 | UNISOC 8910DM | Sequans SQN3530 |
-|--------|-------------|----------------|--------------|----------------|
-| 集成度 | 高（1606集成PMIC） | 极高（三合一） | 高 | 高（单芯片） |
-| 制程 | 22nm（1606） | — | — | — |
-| 处理器 | Cortex-R5 @ 624MHz | Cortex-M3 @ 204MHz | ARM架构 | 自研IoT CPU |
-| 封装尺寸 | — | 6.1×6.1mm | — | 极小（WLP） |
-| PSM功耗 | — | 1.3μA | — | 超低 |
-| 多模 | LTE+GSM | 纯4G | LTE+GSM | LTE Cat 1 |
-| VoLTE | 支持 | 支持 | 支持 | 支持 |
-| 市场份额 | ~50% | 第二梯队 | 第二梯队 | 国际市场 |
-| 主要市场 | 全球（中国为主） | 中国 | 中国/全球 | 欧美日韩 |
-| 开发生态 | SDK成熟，亿级出货 | LuatOS等 | 完善 | 运营商认证完备 |
+| 对比项 | ASR1606 | Eigencomm EC618 | UNISOC 8910DM | Qualcomm QCX216 | Sequans SQN3530 |
+|--------|---------|----------------|--------------|----------------|----------------|
+| 标准 | Cat.1 bis Rel-14 | Cat.1 bis Rel-14 | Cat.1 bis + GSM | Cat.1 bis | Cat.1 bis Rel-15 |
+| 制程 | **22nm** | — | 28nm | — | — |
+| 处理器 | Cortex-R5 @ 624MHz | Cortex-M3 @ 204MHz | Cortex-A5 @ 500MHz | Cortex-M3 @ 204MHz | 自研 IoT CPU |
+| 片内内存 | PSRAM+Flash集成 | 1MB SRAM+4MB Flash | 需外挂 | 1.25MB RAM+4MB Flash | — |
+| 封装 | 小 | 6.1×6.1mm（极小） | 8.9×8.9mm | — | WLP（极小） |
+| PSM功耗 | — | **1.3μA** | 低 | ~10mA 空闲 | 超低 |
+| PMIC 集成 | 是 | 是 | 外置 | 外置 | 是 |
+| 蓝牙 | 否 | 否 | **BT 4.2（片内）** | 否 | 否 |
+| Wi-Fi Scan | 否 | 是 | 是 | 是 | 否 |
+| VoLTE | 是 | 是 | 是 | — | 是 |
+| OpenCPU | 是 | 是 | 是（V8850） | 是（FreeRTOS）| 是 |
+| 多模（含2G） | LTE+GSM | 纯4G | LTE+GSM | 纯4G | 纯4G |
+| 主要市场 | 中国/全球 | 中国 | 中国/全球 | 全球（欧美） | 欧美日韩 |
+| 市场份额 | **~50%** | ~18% | ~25% | 入局 | 国际市场 |
+| 运营商认证 | 国内三大 | 国内三大 | 45+国家 | AT&T/Verizon等 | 9大运营商 |
 
 ---
 
@@ -444,17 +480,21 @@ LTE Cat 1 DTU 模块
 ### 6.1 市场规模
 
 - 2024 年全球 Cat 1 芯片出货量 **超过 2.5 亿片**
-- 蜂窝物联网模组（工业+车载）2024 年增长 **约 16%**
-- 中国市场驱动：POS、共享经济、工业物联网
-- 2025 年中国市场预计增长 **10-15%**
+- Cat 1 bis 芯片市场 2024 年规模约 **10.45 亿美元**，预计 2031 年达 **16.32 亿美元**
+- 蜂窝物联网模组（工业+车载）2024 年增长 **约 16%**；中国模组出货量同比增长 **21%**
+- 2025 年全球蜂窝物联网模组预计出货 **5.44 亿片**，营收 **39.3 亿美元**（+23% YoY）
+- 中国市场驱动：POS、共享经济、工业物联网、2G/3G 退网替换
+- 2025 年中国市场预计增长 **10-15%**；西方市场库存去化后反弹至高个位数增长
 
 ### 6.2 技术趋势
 
 1. **单芯片 SoC 化**：基带 + RF + PMIC 三合一（EC618 引领，ASR1606 跟进）
-2. **制程升级**：向 22nm 及以下演进（ASR1606 已达 22nm）
-3. **功耗优化**：PSM 电流向 1μA 以下挑战
+2. **制程升级**：向 22nm 及以下演进（ASR1606、UNISOC V8821 已达 22nm）
+3. **功耗优化**：PSM 电流向 1μA 以下挑战（XY1100 NB-IoT 已达 700nA）
 4. **生态扩展**：OpenCPU 使芯片直接承载客户应用，省去外部 MCU
 5. **全球化**：Cat 1 bis 从中国向全球扩张，替代 2G/3G 退网市场
+6. **向 5G 演进路径**：Sequans Calliope 3、ASR1903（5G RedCap）提供升级路径，eRedCap 填补 Cat 1 bis 与 5G 间的空白
+7. **非地面网络（NTN）**：UNISOC V8821 已面向卫星 IoT，代表蜂窝物联网的下一前沿
 
 ### 6.3 竞争格局
 
@@ -463,8 +503,13 @@ LTE Cat 1 DTU 模块
 ASR 翱捷        ████████████████████ ~50%
 UNISOC 展锐     ████████████ ~25%
 Eigencomm 移芯  ████████ ~18%
-其他（海思、高通等）██ ~7%
+其他（海思、信翼、高通等）██ ~7%
 ```
+
+**格局展望**：
+- 海思 Hi2131 于 2024 年 7 月正式入局，依托华为资源预计 2026 年起快速扩张
+- 信翼科技（ISSCC 2025）技术能力获国际认可，高端市场潜力大
+- 高通 QCX216 主攻欧美市场，不与中国厂商在国内正面竞争
 
 ### 6.4 NB-IoT vs Cat 1 bis 趋势
 
@@ -489,14 +534,30 @@ Eigencomm 移芯  ████████ ~18%
 
 ## 参考资料
 
+### 官方规格与数据手册
 - [ASR1601 官方规格](https://www.asrmicro.com/en/goods/proinfo/7.html)
 - [ASR1606 官方规格](http://www.asrmicro.com/en/goods/proinfo/9.html)
+- [ASR3601 官方规格](http://www.asrmicro.com/en/goods/proinfo/39.html)
+- [UNISOC 8910DM 产品页](https://www.unisoc.com/cn_zh/home/TGYWLW-8910DM-7)
+- [Sequans Calliope 2 产品页](https://sequans.com/products/calliope-2/)
+- [Qualcomm QCX216 产品简介（PDF）](https://docs.qualcomm.com/bundle/publicresource/87-PW324-1_REV_C_Qualcomm_QCX216_LTE_IOT_Modem_Product_Brief.pdf)
+- [Qualcomm MDM9205 产品简介（PDF）](https://www.qualcomm.com/content/dam/qcomm-martech/dm-assets/documents/9205-lte-modem-product-brief_87-pw321-1.pdf)
+- [Sony Altair ALT1160](https://altair.sony-semicon.com/products/alt1160/)
+
+### 开源与开发者资源
 - [Eigencomm EC618 - SoCXin](https://github.com/SoCXin/EC618)
 - [ASR1601 - SoCXin](https://github.com/SoCXin/ASR1601)
-- [UNISOC 8910DM](https://www.unisoc.com/cn_zh/home/TGYWLW-8910DM-7)
-- [Sequans Calliope LTE Cat 1 平台](https://sequans.com/products/calliope/)
+- [LuatOS EC618 文档](https://wiki.luatos.org/chips/air780e/mcu.html)
+- [Logicrom SDK（ASR1601/RDA8910）](https://github.com/waybyte/logicromsdk)
+
+### 技术分析与市场报告
 - [Qualcomm LTE Cat 1bis 白皮书（2024）](https://www.qualcomm.com/content/dam/qcomm-martech/dm-assets/documents/whitepaper_understanding_the_benefits_of_lte_cat_1bis_technology.pdf)
+- [2024 Cellular IoT Module Market Update - IoT Business News](https://iotbusinessnews.com/2025/02/19/02010-2024-cellular-iot-module-market-update/)
+- [2025-2026 蜂窝物联网模组市场展望 - IoT Business News](https://iotbusinessnews.com/2026/02/10/cellular-iot-modules-market-outlook-2025-2026-strong-growth-in-2025-structural-pressures-ahead/)
+- [Cat.1 bis 芯片市场 2025-2032 预测](https://www.intelmarketresearch.com/cat-bis-chip-2025-2032-359-5192)
+- [高新兴 GM196H（基于 ASR1606）发布](https://www.gosuncn.com/article/565.html)
 - [Cat.1 芯片模组产业分析 - CSDN](https://blog.csdn.net/a1809032425/article/details/134057126)
 - [网红 Cat.1 诞生背景 - 知乎](https://zhuanlan.zhihu.com/p/123924614)
-- [LuatOS EC618 文档](https://wiki.luatos.org/chips/air780e/mcu.html)
-- [2024 Cellular IoT Module Market Update - IoT Business News](https://iotbusinessnews.com/2025/02/19/02010-2024-cellular-iot-module-market-update/)
+- [非"魔改"专属 Cat 1 芯片解析 - 半导体行业观察](http://www.semiinsights.com/s/package_test/35/39162.shtml)
+- [Assessing the LTE Cat-1 bis market - RCR Wireless（2023）](https://www.rcrwireless.com/20230109/carriers/assessing-the-lte-cat-1-bis-market-and-qualcomms-late-entry-into-it-reader-forum)
+- [LTE Cat 1 bis 综合指南 - Cavli Wireless](https://www.cavliwireless.com/blog/nerdiest-of-things/ultimate-guide-to-lte-cat-1bis-technology)
